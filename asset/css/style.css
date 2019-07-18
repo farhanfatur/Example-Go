@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+* {
+    margin : 0;
+    padding : 0;
+    font-weight: 'PT Sans', 'sans-serif';
+}
+
+body.login, body.dashboard {
+    background-color: rgb(52, 50, 54);
+}
+
+.container {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.grid {
+    padding: 20px;
+    background-color: rgb(160, 255, 196);
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 8px;
+    border: 1px solid #aaaaaa;
+}
+
+.thaction {
+    width: 150px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tr th {
+    background-color: #dbdbdb;
+    padding: 4px;
+}
+
+td, th {
+    background: #fff;
+    padding : 5px;
+}
+
+.form-control {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.btn-submit {
+    color: whitesmoke;
+    background-color: rgb(139, 130, 41);
+    border: 2px solid rgb(121, 112, 36); 
+}
+
+.btn-warning {
+    color: whitesmoke;
+    background-color: rgb(148, 133, 0);
+    border: 2px solid rgb(110, 99, 0); 
+}
+
+.btn-warning:hover {
+    color: whitesmoke;
+    background-color: rgb(179, 161, 0);
+    border: 2px solid rgb(117, 106, 0); 
+}
+
+.btn-submit:hover {
+    background-color: rgb(143, 133, 47);
+    border: 2px solid rgb(110, 103, 39); 
+}
+
+.container-field {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: auto;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    background-color: rgb(241, 255, 255);
+    margin-top: 6em;
+    margin-right: auto;
+}
+
+.container-field-2 {
+    border-radius: 10px;
+    width: 600px;
+    margin-left: auto;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    background-color: rgb(241, 255, 255);
+    margin-top: 6em;
+    margin-right: auto;
+}
+
+.form-control {
+    border: none;
+    padding: 10px;
+    border: 1px solid #cacaca;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.field {
+    padding-top:15px;   
+}
+
+h1.title-field {
+    padding:12px;
+    margin-top: -50px;
+    margin-left: -70px;
+    margin-right: -70px;
+    color: white;
+    background-color: rgb(114, 211, 211);
+    text-align: center;
+}
+
+h1.tf-2 {
+    background-color: rgb(59, 3, 3);
+}

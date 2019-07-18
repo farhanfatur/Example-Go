@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cssstatic/style.css" type="text/css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body class="dashboard">
+    <div class="container">
+        <div class="grid">
+                <h2 align="center">Example CRUD</h2>
+            <button class="btn btn-submit" onclick="window.location.href='/views/add'">+ Add Data</button>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th class="thaction">Action</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody id="grid-data"></tbody>
+            </table>
+            <div id="form-edit">
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/jsstatics/jquery.min.js"></script>
+<script type="text/javascript">
+    var data = []
+    function getData() {
+        $.ajax({
+            url: "/process/getdata",
+            type: "POST",
+            success: function(res) {
+                data = res
+                renderGrid()
+            },
+            error: function(err) {
+                alert("Message: ", err)
+            }
+        })
+    }
+
+    function renderGrid() {
+        var $tbody = $("tbody")
+        $tbody.empty()
+        $.each(data, function(i, v) {
+            var $tr = $("<tr></tr>")
+            $tr.appendTo($tbody)
+
+            $('<td></td>').html('<button class="btn btn-warning" onclick=\'edit("'+v.ID+'")\'>Edit</button> / <button class="btn btn-danger" onclick=\'remove("'+v.ID+'")\'>Delete</button></td>').appendTo($tr),
+            $('<td></td>').html(v.Name).appendTo($tr),
+            $('<td></td>').html(v.Age).appendTo($tr)
+        })
+    }
+
+
+    function edit(id) {
+        var data = {
+            "ID": id
+        }
+        var dataParse = JSON.stringify(data)
+        $.ajax({
+            url: "/process/edit",
+            type: 'POST',
+            dataType: 'json',
+            data: dataParse,
+            success: function(res) {
+                var v = res.Data[0]
+                console.log(v)
+                $("#form-edit").html(
+                "<div class=\"container-field-2\" id=\"hideme\">"+
+                "<h1 class=\"title-field tf-2\">Edit Data</h1>"+
+                "<input type=\"hidden\" name=\"id\" value="+v.ID+">"+
+                "<div class=\"field field-2\">"+
+                "    <label>Name</label>"+
+                "    <input type=\"text\" name=\"name\" class=\"form-control\" value="+v.Name+">"+
+                "</div>"+
+                "<div class=\"field field-2\">"+
+                "    <label>Age</label>"+
+                "    <input type=\"text\" name=\"age\" class=\"form-control\" value="+v.Age+">"+
+                "</div>"+
+                "<div class=\"field field-2\">"+
+                "    <button type=\"button\" class=\"btn btn-submit\" onclick=\"updateData()\">Submit</button>"+
+                "</div>")
+            },
+            error: function(err) {
+                console.log("Something Error!")
+            }
+        })
+    }
+
+    function updateData() {
+        var id = $("[name=id]").val()
+        var name = $("[name=name]").val()
+        var age = $("[name=age]").val()
+        if( id == "" || name == ""|| age == "") {
+            alert("Field must be not empty!")
+        }else {
+            var data = {
+                ID: id,
+                Name: name,
+                Age: age
+            }
+            var dataParse = JSON.stringify(data)
+            console.log(dataParse)
+            $.ajax({
+                url: "/process/update",
+                type: 'POST',
+                data: dataParse,
+                dataType: 'json',
+                success: function(res) {
+                    alert(res.Message)
+                    if (res.Status == true) {
+                        $("#hideme").remove()
+                    }
+                    getData()
+                },
+                err: function() {
+                    alert("Something error!")
+                }
+            })
+        }
+    }
+    function remove(id) {
+        if(confirm("Are you sure?")) {
+            var data = {
+                ID: id
+            }
+            var dataParse = JSON.stringify(data)
+            $.ajax({
+                url: "/process/delete",
+                data: dataParse,
+                type: "POST",
+                dataType: "json",
+                success: function(res) {
+                    alert(res.Message)
+                    getData()
+                },
+                error: function() {
+                    alert("Something error!")
+                }
+            })
+        }else {
+            console.log("no")
+        }
+    }
+    $(function() {
+        getData()
+    })
+</script>
+</html>

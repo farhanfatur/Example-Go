@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/cssstatic/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Example Go</title>
+</head>
+<body class="login">
+    <!-- <form action="/process/login" method="post"> -->
+        <div class="container-field">
+            <h1 class="title-field">Login</h1>
+            <div class="field">
+                <label>Username</label>
+                <input type="text" name="user" class="form-control" id="user">
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password" name="pass" class="form-control" id="pass">
+            </div>
+            <div class="field">
+                <button type="button" class="btn btn-submit" onclick="doLogin()">Submit</button>
+            </div>
+        </div>
+    <!-- </form> -->
+</body>
+<script src="/jsstatics/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function doLogin() {
+        var a = $("#user").val()
+        var b = $("#pass").val()
+        var dataParse = {
+            "Username": a,
+            "Password": b
+        }
+            $.ajax({
+                url: "/process/dologin",
+                type: 'POST',
+                data: JSON.stringify(dataParse),
+                // contentType : "application/json", 
+                dataType: 'json',
+                success: function(res) {
+                    if (res.Status == false) {
+                        alert("Something error")
+                    }else {
+                        location.href = "/views/dashboard"
+                    }
+                },
+                error: function(res) {
+                    console.log(res)
+                }
+            })
+    }
+</script>
+</html>
